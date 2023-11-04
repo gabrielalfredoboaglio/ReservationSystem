@@ -1,8 +1,8 @@
 package com.transporteboaglio.TB.controller;
 
 import com.transporteboaglio.TB.entity.User;
-import com.transporteboaglio.TB.repository.UserRepository;
-import com.transporteboaglio.TB.service.impl.UserService;
+
+import com.transporteboaglio.TB.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

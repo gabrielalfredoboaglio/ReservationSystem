@@ -1,4 +1,4 @@
-package com.transporteboaglio.TB.service.impl;
+package com.transporteboaglio.TB.service;
 
 import com.transporteboaglio.TB.entity.User;
 
