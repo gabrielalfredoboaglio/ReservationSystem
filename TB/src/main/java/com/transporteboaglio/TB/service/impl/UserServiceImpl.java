@@ -19,7 +19,7 @@ private UserRepository userRepository;
 
     @Override
     public User getUserById(Long id) {
-  return userRepository.findById(id).orElse(null);
+    return userRepository.findById(id).orElse(null);
     }
 
     @Override
