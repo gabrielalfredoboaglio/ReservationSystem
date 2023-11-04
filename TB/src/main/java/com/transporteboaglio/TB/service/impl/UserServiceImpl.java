@@ -19,16 +19,16 @@ private UserRepository userRepository;
 
     @Override
     public User getUserById(Long id) {
-        return null;
+  return userRepository.findById(id).orElse(null);
     }
 
     @Override
     public User saveUser(User user) {
-        return null;
+      return userRepository.save(user);
     }
 
     @Override
     public void deleteUser(Long id) {
-
+        userRepository.deleteById(id);
     }
 }
