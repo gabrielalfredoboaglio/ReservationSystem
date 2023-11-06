@@ -12,6 +12,7 @@ public class Screening {
     private Long id;
 
     private Date startTime; // Fecha y hora de inicio de la función
+    private Integer availableSeats;
 
     @ManyToOne
     @JoinColumn(name = "movie_id") // Establece la relación con la entidad "Movie"
@@ -37,6 +38,14 @@ public class Screening {
 
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
+    }
+
+    public Integer getAvailableSeats() {
+        return availableSeats;
+    }
+
+    public void setAvailableSeats(Integer availableSeats) {
+        this.availableSeats = availableSeats;
     }
 
     public Movie getMovie() {
@@ -66,8 +75,10 @@ public class Screening {
     public Screening() {
     }
 
-    public Screening(Date startTime, Movie movie, Theater theater, double price) {
+    public Screening(Long id, Date startTime, Integer availableSeats, Movie movie, Theater theater, double price) {
+        this.id = id;
         this.startTime = startTime;
+        this.availableSeats = availableSeats;
         this.movie = movie;
         this.theater = theater;
         this.price = price;
