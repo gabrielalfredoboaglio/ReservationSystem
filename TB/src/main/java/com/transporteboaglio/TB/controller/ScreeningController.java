@@ -1,6 +1,6 @@
 package com.transporteboaglio.TB.controller;
 
-import com.transporteboaglio.TB.entity.Screening;
+import com.transporteboaglio.TB.entity.ScreeningEntity;
 import com.transporteboaglio.TB.service.ScreeningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +16,13 @@ public class ScreeningController {
     private  ScreeningService screeningService;
 
     @GetMapping
-    public List<Screening> listScreenings() {
+    public List<ScreeningEntity> listScreenings() {
         return screeningService.listScreenings();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Screening> getScreening(@PathVariable Long id) {
-        Screening screening = screeningService.getScreeningById(id);
+    public ResponseEntity<ScreeningEntity> getScreening(@PathVariable Long id) {
+        ScreeningEntity screening = screeningService.getScreeningById(id);
         if (screening != null) {
             return ResponseEntity.ok(screening);
         } else {
@@ -31,14 +31,14 @@ public class ScreeningController {
     }
 
     @PostMapping
-    public ResponseEntity<Screening> createScreening(@RequestBody Screening screening) {
-        Screening createdScreening = screeningService.createScreening(screening);
+    public ResponseEntity<ScreeningEntity> createScreening(@RequestBody ScreeningEntity screening) {
+        ScreeningEntity createdScreening = screeningService.createScreening(screening);
         return ResponseEntity.ok(createdScreening);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Screening> updateScreening(@PathVariable Long id, @RequestBody Screening screening) {
-        Screening updatedScreening = screeningService.updateScreening(id, screening);
+    public ResponseEntity<ScreeningEntity> updateScreening(@PathVariable Long id, @RequestBody ScreeningEntity screening) {
+        ScreeningEntity updatedScreening = screeningService.updateScreening(id, screening);
         if (updatedScreening != null) {
             return ResponseEntity.ok(updatedScreening);
         } else {

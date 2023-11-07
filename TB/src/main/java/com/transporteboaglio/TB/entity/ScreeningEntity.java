@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Screening {
+public class ScreeningEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,11 +16,11 @@ public class Screening {
 
     @ManyToOne
     @JoinColumn(name = "movie_id") // Establece la relación con la entidad "Movie"
-    private Movie movie; // Una función pertenece a una película
+    private MovieEntity movie; // Una función pertenece a una película
 
     @ManyToOne
     @JoinColumn(name = "theater_id") // Establece la relación con la entidad "Theater"
-    private Theater theater; // Una función se realiza en una sala de cine
+    private TheaterEntity theater; // Una función se realiza en una sala de cine
 
     private double price; // Precio de la función
 
@@ -48,19 +48,19 @@ public class Screening {
         this.availableSeats = availableSeats;
     }
 
-    public Movie getMovie() {
+    public MovieEntity getMovie() {
         return movie;
     }
 
-    public void setMovie(Movie movie) {
+    public void setMovie(MovieEntity movie) {
         this.movie = movie;
     }
 
-    public Theater getTheater() {
+    public TheaterEntity getTheater() {
         return theater;
     }
 
-    public void setTheater(Theater theater) {
+    public void setTheater(TheaterEntity theater) {
         this.theater = theater;
     }
 
@@ -72,10 +72,10 @@ public class Screening {
         this.price = price;
     }
 
-    public Screening() {
+    public ScreeningEntity() {
     }
 
-    public Screening(Long id, Date startTime, Integer availableSeats, Movie movie, Theater theater, double price) {
+    public ScreeningEntity(Long id, Date startTime, Integer availableSeats, MovieEntity movie, TheaterEntity theater, double price) {
         this.id = id;
         this.startTime = startTime;
         this.availableSeats = availableSeats;

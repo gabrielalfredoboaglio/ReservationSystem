@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Theater {
+public class TheaterEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -57,10 +57,10 @@ public class Theater {
         this.numberOfSeatsPerRow = numberOfSeatsPerRow;
     }
 
-    public Theater() {
+    public TheaterEntity() {
     }
 
-    public Theater(String name, String capacity, String numberOfRows, String numberOfSeatsPerRow) {
+    public TheaterEntity(String name, String capacity, String numberOfRows, String numberOfSeatsPerRow) {
         this.name = name;
         this.capacity = capacity;
         this.numberOfRows = numberOfRows;

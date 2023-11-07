@@ -3,7 +3,7 @@ package com.transporteboaglio.TB.entity;
 import jakarta.persistence.*;
 
 @Entity
-public class Movie {
+public class MovieEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,10 +65,10 @@ public class Movie {
         this.image = image;
     }
 
-    public Movie() {
+    public MovieEntity() {
     }
 
-    public Movie(Long id, String title, String description, String duration, String classification, byte[] image) {
+    public MovieEntity(Long id, String title, String description, String duration, String classification, byte[] image) {
         this.id = id;
         this.title = title;
         this.description = description;

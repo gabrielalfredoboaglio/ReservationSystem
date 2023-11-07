@@ -1,8 +1,13 @@
 package com.transporteboaglio.TB.repository;
 
-
-import com.transporteboaglio.TB.entity.User;
+import com.transporteboaglio.TB.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.Optional;
+
+@Repository
+public interface UserRepository extends JpaRepository<UserEntity, Long>{
+    Optional<UserEntity> findByUsername(String username);
+
 }

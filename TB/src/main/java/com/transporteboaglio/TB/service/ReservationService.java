@@ -1,14 +1,14 @@
 package com.transporteboaglio.TB.service;
 
-import com.transporteboaglio.TB.entity.Reservation;
+import com.transporteboaglio.TB.entity.ReservationEntity;
 
 import java.util.List;
 
 public interface ReservationService {
-    List<Reservation> listReservations();
-    Reservation getReservationById(Long id);
-    Reservation createReservation(Reservation reservation);
-    Reservation updateReservation(Long id, Reservation reservation);
+    List<ReservationEntity> listReservations();
+    ReservationEntity getReservationById(Long id);
+    ReservationEntity createReservation(ReservationEntity reservation);
+    ReservationEntity updateReservation(Long id, ReservationEntity reservation);
     void deleteReservation(Long id);
 }
 

@@ -1,6 +1,6 @@
 package com.transporteboaglio.TB.service.impl;
 
-import com.transporteboaglio.TB.entity.Screening;
+import com.transporteboaglio.TB.entity.ScreeningEntity;
 import com.transporteboaglio.TB.repository.ScreeningRepository;
 import com.transporteboaglio.TB.service.ScreeningService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,24 +20,24 @@ public class ScreeningServiceImpl implements ScreeningService {
     }
 
     @Override
-    public List<Screening> listScreenings() {
+    public List<ScreeningEntity> listScreenings() {
         return screeningRepository.findAll();
     }
 
     @Override
-    public Screening getScreeningById(Long id) {
-        Optional<Screening> optionalScreening = screeningRepository.findById(id);
+    public ScreeningEntity getScreeningById(Long id) {
+        Optional<ScreeningEntity> optionalScreening = screeningRepository.findById(id);
         return optionalScreening.orElse(null);
     }
 
     @Override
-    public Screening createScreening(Screening screening) {
+    public ScreeningEntity createScreening(ScreeningEntity screening) {
         return screeningRepository.save(screening);
     }
 
     @Override
-    public Screening updateScreening(Long id, Screening screening) {
-        Optional<Screening> optionalScreening = screeningRepository.findById(id);
+    public ScreeningEntity updateScreening(Long id, ScreeningEntity screening) {
+        Optional<ScreeningEntity> optionalScreening = screeningRepository.findById(id);
         if (optionalScreening.isPresent()) {
             screening.setId(id);
             return screeningRepository.save(screening);

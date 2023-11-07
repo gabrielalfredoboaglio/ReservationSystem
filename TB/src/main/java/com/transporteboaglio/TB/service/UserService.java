@@ -1,13 +1,13 @@
 package com.transporteboaglio.TB.service;
 
-import com.transporteboaglio.TB.entity.User;
+import com.transporteboaglio.TB.entity.UserEntity;
 
 import java.util.List;
 
 public interface UserService {
-    List<User> listUsers();
-    User getUserById(Long id);
-    User saveUser(User user);
+    List<UserEntity> listUsers();
+    UserEntity getUserById(Long id);
+    UserEntity createUser(UserEntity user);
     void deleteUser(Long id);
 }
 

@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 
 @Entity
-public class Reservation {
+public class ReservationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,7 +16,7 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "screening_id") // Establece la relación con la entidad "Screening"
-    private Screening screening;
+    private ScreeningEntity screening;
 
     private String status;
 
@@ -44,11 +44,11 @@ public class Reservation {
         this.numberofseats = numberofseats;
     }
 
-    public Screening getScreening() {
+    public ScreeningEntity getScreening() {
         return screening;
     }
 
-    public void setScreening(Screening screening) {
+    public void setScreening(ScreeningEntity screening) {
         this.screening = screening;
     }
 
@@ -60,10 +60,10 @@ public class Reservation {
         this.status = status;
     }
 
-    public Reservation() {
+    public ReservationEntity() {
     }
 
-    public Reservation(String nameofclient, Integer numberofseats, Screening screening, String status) {
+    public ReservationEntity(String nameofclient, Integer numberofseats, ScreeningEntity screening, String status) {
         this.nameofclient = nameofclient;
         this.numberofseats = numberofseats;
         this.screening = screening;

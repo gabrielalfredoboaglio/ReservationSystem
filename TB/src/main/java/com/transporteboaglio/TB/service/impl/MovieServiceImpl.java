@@ -1,6 +1,6 @@
 package com.transporteboaglio.TB.service.impl;
 
-import com.transporteboaglio.TB.entity.Movie;
+import com.transporteboaglio.TB.entity.MovieEntity;
 import com.transporteboaglio.TB.repository.MovieRepository;
 import com.transporteboaglio.TB.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +15,23 @@ public class MovieServiceImpl implements MovieService {
     private MovieRepository movieRepository;
 
     @Override
-    public List<Movie> listMovies() {
+    public List<MovieEntity> listMovies() {
         return movieRepository.findAll();
     }
 
     @Override
-    public Movie getMovieById(Long id) {
-        Optional<Movie> movieOptional = movieRepository.findById(id);
+    public MovieEntity getMovieById(Long id) {
+        Optional<MovieEntity> movieOptional = movieRepository.findById(id);
         return movieOptional.orElse(null);
     }
 
     @Override
-    public Movie createMovie(Movie movie) {
+    public MovieEntity createMovie(MovieEntity movie) {
         return movieRepository.save(movie);
     }
 
     @Override
-    public Movie updateMovie(Long id, Movie movie) {
+    public MovieEntity updateMovie(Long id, MovieEntity movie) {
         if (movieRepository.existsById(id)) {
             movie.setId(id);
             return movieRepository.save(movie);

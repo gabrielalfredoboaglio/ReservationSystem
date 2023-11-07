@@ -1,6 +1,6 @@
 package com.transporteboaglio.TB.controller;
 
-import com.transporteboaglio.TB.entity.Movie;
+import com.transporteboaglio.TB.entity.MovieEntity;
 import com.transporteboaglio.TB.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,14 +21,14 @@ public class MovieController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Movie>> listMovies() {
-        List<Movie> movies = movieService.listMovies();
+    public ResponseEntity<List<MovieEntity>> listMovies() {
+        List<MovieEntity> movies = movieService.listMovies();
         return ResponseEntity.ok(movies);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Movie> getMovieById(@PathVariable Long id) {
-        Movie movie = movieService.getMovieById(id);
+    public ResponseEntity<MovieEntity> getMovieById(@PathVariable Long id) {
+        MovieEntity movie = movieService.getMovieById(id);
         if (movie != null) {
             return ResponseEntity.ok(movie);
         } else {
@@ -37,17 +37,17 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<Movie> createMovie(@RequestBody Movie movie) {
-        Movie savedMovie = movieService.createMovie(movie);
+    public ResponseEntity<MovieEntity> createMovie(@RequestBody MovieEntity movie) {
+        MovieEntity savedMovie = movieService.createMovie(movie);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMovie);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Movie> updateMovie(@PathVariable Long id, @RequestBody Movie movie) {
-        Movie existingMovie = movieService.getMovieById(id);
+    public ResponseEntity<MovieEntity> updateMovie(@PathVariable Long id, @RequestBody MovieEntity movie) {
+        MovieEntity existingMovie = movieService.getMovieById(id);
         if (existingMovie != null) {
             movie.setId(id);
-            Movie updatedMovie = movieService.updateMovie(id, movie);
+            MovieEntity updatedMovie = movieService.updateMovie(id, movie);
             return ResponseEntity.ok(updatedMovie);
         } else {
             return ResponseEntity.notFound().build();
@@ -57,7 +57,7 @@ public class MovieController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
-        Movie existingMovie = movieService.getMovieById(id);
+        MovieEntity existingMovie = movieService.getMovieById(id);
         if (existingMovie != null) {
             movieService.deleteMovie(id);
             return ResponseEntity.noContent().build();

@@ -1,6 +1,6 @@
 package com.transporteboaglio.TB.service.impl;
 
-import com.transporteboaglio.TB.entity.Reservation;
+import com.transporteboaglio.TB.entity.ReservationEntity;
 import com.transporteboaglio.TB.repository.ReservationRepository;
 import com.transporteboaglio.TB.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +15,23 @@ public class ReservationServiceImpl implements ReservationService {
     private  ReservationRepository reservationRepository;
 
     @Override
-    public List<Reservation> listReservations() {
+    public List<ReservationEntity> listReservations() {
         return reservationRepository.findAll();
     }
 
     @Override
-    public Reservation getReservationById(Long id) {
+    public ReservationEntity getReservationById(Long id) {
         return reservationRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Reservation createReservation(Reservation reservation) {
+    public ReservationEntity createReservation(ReservationEntity reservation) {
         return reservationRepository.save(reservation);
     }
 
     @Override
-    public Reservation updateReservation(Long id, Reservation reservation) {
-        Reservation existingReservation = reservationRepository.findById(id).orElse(null);
+    public ReservationEntity updateReservation(Long id, ReservationEntity reservation) {
+        ReservationEntity existingReservation = reservationRepository.findById(id).orElse(null);
         if (existingReservation != null) {
             reservation.setId(id);
             return reservationRepository.save(reservation);
