@@ -1,14 +1,15 @@
 package com.transporteboaglio.TB.controller;
 
-import com.transporteboaglio.TB.request.CreateUserDto;
+import com.transporteboaglio.TB.request.CreateUserDTO;
 import com.transporteboaglio.TB.entity.RoleEntity;
 import com.transporteboaglio.TB.entity.UserEntity;
-import com.transporteboaglio.TB.enumeration.Erole;
+import com.transporteboaglio.TB.enumeration.ERole;
 import com.transporteboaglio.TB.repository.UserRepository;
 import com.transporteboaglio.TB.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -26,26 +27,34 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/list")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UserEntity> listUsers() {
         return userService.listUsers();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public UserEntity getUserById(@PathVariable Long id) { // Agregado @PathVariable para obtener el ID desde la URL
         return userService.getUserById(id);
     }
 
     @PostMapping("/createUser")
-    public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserDto createUserDto) {
+    public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserDTO createUserDTO){
 
-        Set<RoleEntity> roles = createUserDto.getRoles().stream().map(role -> RoleEntity.builder().name(Erole.valueOf(role)).build()).collect(Collectors.toSet());
+        Set<RoleEntity> roles = createUserDTO.getRoles().stream()
+                .map(role -> RoleEntity.builder()
+                        .name(ERole.valueOf(role))
+                        .build())
+                .collect(Collectors.toSet());
 
-        UserEntity userEntity = UserEntity.builder().
-                username(createUserDto.getUsername()).
-                password(passwordEncoder.encode(createUserDto.getPassword())).
-                email(createUserDto.getEmail()).
-                roles(roles).build();
-        userService.createUser ( userEntity);
+        UserEntity userEntity = UserEntity.builder()
+                .username(createUserDTO.getUsername())
+                .password(passwordEncoder.encode(createUserDTO.getPassword()))
+                .email(createUserDTO.getEmail())
+                .roles(roles)
+                .build();
+
+        userRepository.save(userEntity);
 
         return ResponseEntity.ok(userEntity);
     }

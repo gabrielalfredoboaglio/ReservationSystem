@@ -1,6 +1,6 @@
 package com.transporteboaglio.TB.entity;
 
-import com.transporteboaglio.TB.enumeration.Erole;
+import com.transporteboaglio.TB.enumeration.ERole;
 import jakarta.persistence.*;
 import lombok.Builder;
 
@@ -15,12 +15,12 @@ public class RoleEntity {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private Erole name;
+    private ERole name;
 
     public RoleEntity() {
     }
 
-    public RoleEntity(Long id, Erole name) {
+    public RoleEntity(Long id, ERole name) {
         this.id = id;
         this.name = name;
     }
@@ -33,11 +33,11 @@ public class RoleEntity {
         this.id = id;
     }
 
-    public Erole getName() {
+    public ERole getName() {
         return name;
     }
 
-    public void setName(Erole name) {
+    public void setName(ERole name) {
         this.name = name;
     }
 }

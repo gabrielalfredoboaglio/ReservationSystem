@@ -5,6 +5,7 @@ import com.transporteboaglio.TB.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,12 +22,14 @@ public class MovieController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<MovieEntity>> listMovies() {
         List<MovieEntity> movies = movieService.listMovies();
         return ResponseEntity.ok(movies);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<MovieEntity> getMovieById(@PathVariable Long id) {
         MovieEntity movie = movieService.getMovieById(id);
         if (movie != null) {
@@ -37,12 +40,14 @@ public class MovieController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<MovieEntity> createMovie(@RequestBody MovieEntity movie) {
         MovieEntity savedMovie = movieService.createMovie(movie);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMovie);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<MovieEntity> updateMovie(@PathVariable Long id, @RequestBody MovieEntity movie) {
         MovieEntity existingMovie = movieService.getMovieById(id);
         if (existingMovie != null) {
