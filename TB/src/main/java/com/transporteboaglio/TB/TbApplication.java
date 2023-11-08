@@ -44,16 +44,10 @@ public class TbApplication {
 					.roles(Set.of(RoleEntity.builder().name(ERole.USER).build()))
 					.build();
 
-			UserEntity userEntity3 = UserEntity.builder()
-					.email("emi@mail.com")
-					.username("emi")
-					.password(passwordEncoder.encode("123456"))
-					.roles(Set.of(RoleEntity.builder().name(ERole.INVITED).build()))
-					.build();
 
 			userRepository.save(userEntity);
 			userRepository.save(userEntity2);
-			userRepository.save(userEntity3);
+
 		};
 	}
 }

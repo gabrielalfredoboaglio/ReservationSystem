@@ -22,7 +22,7 @@ public class ScreeningController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('user_client_role') or hasRole('admin_client_role')")
     public ResponseEntity<ScreeningEntity> getScreening(@PathVariable Long id) {
         ScreeningEntity screening = screeningService.getScreeningById(id);
         if (screening != null) {
@@ -33,14 +33,14 @@ public class ScreeningController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('user_client_role')")
+    @PreAuthorize("hasRole('user_client_role') or hasRole('admin_client_role')")
     public ResponseEntity<ScreeningEntity> createScreening(@RequestBody ScreeningEntity screening) {
         ScreeningEntity createdScreening = screeningService.createScreening(screening);
         return ResponseEntity.ok(createdScreening);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('user_client_role')")
+    @PreAuthorize("hasRole('user_client_role') or hasRole('admin_client_role')")
     public ResponseEntity<ScreeningEntity> updateScreening(@PathVariable Long id, @RequestBody ScreeningEntity screening) {
         ScreeningEntity updatedScreening = screeningService.updateScreening(id, screening);
         if (updatedScreening != null) {
@@ -51,7 +51,7 @@ public class ScreeningController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('user_client_role)")
+    @PreAuthorize("hasRole('user_client_role') or hasRole('admin_client_role')")
     public ResponseEntity<?> deleteScreening(@PathVariable Long id) {
         screeningService.deleteScreening(id);
         return ResponseEntity.noContent().build();

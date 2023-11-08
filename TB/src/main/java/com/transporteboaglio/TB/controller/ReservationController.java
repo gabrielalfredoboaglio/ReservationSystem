@@ -17,14 +17,14 @@ public class ReservationController {
     private  ReservationService reservationService;
 
     @GetMapping
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('user_client_role') or hasRole('admin_client_role')")
     public ResponseEntity<List<ReservationEntity>> listReservations() {
         List<ReservationEntity> reservations = reservationService.listReservations();
         return ResponseEntity.ok(reservations);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('user_client_role')")
+    @PreAuthorize("hasRole('user_client_role') or hasRole('admin_client_role')")
     public ResponseEntity<ReservationEntity> getReservationById(@PathVariable Long id) {
         ReservationEntity reservation = reservationService.getReservationById(id);
         if (reservation != null) {
@@ -35,14 +35,14 @@ public class ReservationController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('user_client_role')")
+    @PreAuthorize("hasRole('user_client_role') or hasRole('admin_client_role')")
     public ResponseEntity<ReservationEntity> createReservation(@RequestBody ReservationEntity reservation) {
         ReservationEntity createdReservation = reservationService.createReservation(reservation);
         return ResponseEntity.ok(createdReservation);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('user_client_role')")
+    @PreAuthorize("hasRole('user_client_role') or hasRole('admin_client_role')")
     public ResponseEntity<ReservationEntity> updateReservation(@PathVariable Long id, @RequestBody ReservationEntity reservation) {
         ReservationEntity updatedReservation = reservationService.updateReservation(id, reservation);
         if (updatedReservation != null) {
