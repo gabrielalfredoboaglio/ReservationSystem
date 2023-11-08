@@ -24,7 +24,7 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('user_client_role')")
     public ResponseEntity<ReservationEntity> getReservationById(@PathVariable Long id) {
         ReservationEntity reservation = reservationService.getReservationById(id);
         if (reservation != null) {
@@ -35,14 +35,14 @@ public class ReservationController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('user_client_role')")
     public ResponseEntity<ReservationEntity> createReservation(@RequestBody ReservationEntity reservation) {
         ReservationEntity createdReservation = reservationService.createReservation(reservation);
         return ResponseEntity.ok(createdReservation);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('user_client_role')")
     public ResponseEntity<ReservationEntity> updateReservation(@PathVariable Long id, @RequestBody ReservationEntity reservation) {
         ReservationEntity updatedReservation = reservationService.updateReservation(id, reservation);
         if (updatedReservation != null) {
@@ -53,6 +53,7 @@ public class ReservationController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('user_client_role')")
     public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
         reservationService.deleteReservation(id);
         return ResponseEntity.noContent().build();

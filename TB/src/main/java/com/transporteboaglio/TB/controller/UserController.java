@@ -27,13 +27,13 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/list")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('admin_client_role')")
     public List<UserEntity> listUsers() {
         return userService.listUsers();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('admin_client_role')")
     public UserEntity getUserById(@PathVariable Long id) { // Agregado @PathVariable para obtener el ID desde la URL
         return userService.getUserById(id);
     }

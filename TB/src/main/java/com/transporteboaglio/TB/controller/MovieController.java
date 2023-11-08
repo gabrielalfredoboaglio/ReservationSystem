@@ -29,7 +29,7 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('user_client_role'')")
     public ResponseEntity<MovieEntity> getMovieById(@PathVariable Long id) {
         MovieEntity movie = movieService.getMovieById(id);
         if (movie != null) {
@@ -40,14 +40,14 @@ public class MovieController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('user_client_role')")
     public ResponseEntity<MovieEntity> createMovie(@RequestBody MovieEntity movie) {
         MovieEntity savedMovie = movieService.createMovie(movie);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMovie);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('user_client_role'')")
     public ResponseEntity<MovieEntity> updateMovie(@PathVariable Long id, @RequestBody MovieEntity movie) {
         MovieEntity existingMovie = movieService.getMovieById(id);
         if (existingMovie != null) {
@@ -61,6 +61,7 @@ public class MovieController {
 
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('user_client_role'')")
     public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
         MovieEntity existingMovie = movieService.getMovieById(id);
         if (existingMovie != null) {
