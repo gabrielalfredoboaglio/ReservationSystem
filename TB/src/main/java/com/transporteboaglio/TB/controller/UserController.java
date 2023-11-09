@@ -25,8 +25,6 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private RecaptchaService recaptchaService;
 
     @GetMapping("/list")
