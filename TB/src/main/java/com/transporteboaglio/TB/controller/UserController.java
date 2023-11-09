@@ -5,6 +5,7 @@ import com.transporteboaglio.TB.entity.RoleEntity;
 import com.transporteboaglio.TB.entity.UserEntity;
 import com.transporteboaglio.TB.enumeration.ERole;
 import com.transporteboaglio.TB.repository.UserRepository;
+import com.transporteboaglio.TB.service.RecaptchaService;
 import com.transporteboaglio.TB.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RecaptchaService recaptchaService;
 
     @GetMapping("/list")
     @PreAuthorize("hasRole('admin_client_role')")
@@ -39,7 +42,10 @@ public class UserController {
     }
 
     @PostMapping("/createUser")
-    public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserDTO createUserDTO){
+    public ResponseEntity<?> createUser(@ModelAttribute(name= "user") @Valid @RequestBody CreateUserDTO createUserDTO, @RequestParam( name="g-recaptcha-response") String captcha) {
+
+
+        boolean captchaValid = recaptchaService.validateRecaptcha(captcha);
 
         Set<RoleEntity> roles = createUserDTO.getRoles().stream()
                 .map(role -> RoleEntity.builder()
@@ -47,16 +53,20 @@ public class UserController {
                         .build())
                 .collect(Collectors.toSet());
 
-        UserEntity userEntity = UserEntity.builder()
-                .username(createUserDTO.getUsername())
-                .password(passwordEncoder.encode(createUserDTO.getPassword()))
-                .email(createUserDTO.getEmail())
-                .roles(roles)
-                .build();
+        if(captchaValid) {
+            UserEntity userEntity = UserEntity.builder()
+                    .username(createUserDTO.getUsername())
+                    .password(passwordEncoder.encode(createUserDTO.getPassword()))
+                    .email(createUserDTO.getEmail())
+                    .roles(roles)
+                    .build();
 
-        userRepository.save(userEntity);
-
-        return ResponseEntity.ok(userEntity);
+            userService.createUser(userEntity);
+            return ResponseEntity.ok(userEntity);
+        }
+        else {
+            return ResponseEntity.badRequest().body("Captcha invalid");
+        }
     }
 
 
